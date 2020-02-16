@@ -29,13 +29,16 @@ const DATA = [
 	{
 		name: 'Dakota Pregnancy Traditions',
 		imagePath: require("./pregnancy_traditions.png"),
+		id: 'pregnancyTraditions',
 	},
 	{
 		name: 'Pregnancy as Sacred',
 		imagePath: require("./pregnancy_as_sacred.jpg"),
+		id: 'pregnancyAsSacred',
 	},
 	{
 		name: 'The Woman in the Sky',
 		imagePath: require("./the_woman_in_the_sky.jpg"),
+		id: 'womanInTheSky',
 	},
 ]

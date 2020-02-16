@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, FlatList } from 'react-native';
+import { Button, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon, Card } from 'react-native-elements';
@@ -83,10 +83,12 @@ function FinancesResources() {
 function ResourceItem({name, imagePath, description}) {
   return (
     <View style={{flex: 1}}>
-		<Card image = {imagePath}>
-			<Text style={{fontSize: 17, fontWeight: 'bold'}}>{name}</Text>
-			<Text style ={{fontSize: 14, color: '#86878a'}}>{description}</Text>
-		</Card>
+	    <TouchableOpacity onPress={() => {alert('Clicked ' + name);}}>
+			<Card image = {imagePath}>
+				<Text style={{fontSize: 17, fontWeight: 'bold'}}>{name}</Text>
+				<Text style ={{fontSize: 14, color: '#86878a'}}>{description}</Text>
+			</Card>
+		</TouchableOpacity>
 	</View>
   );
 }

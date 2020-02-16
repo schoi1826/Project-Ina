@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, FlatList, Image } from 'react-native';
+import { Button, View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
 
 export default class StoriesScreen extends Component {
@@ -18,9 +18,11 @@ export default class StoriesScreen extends Component {
 function StoryItem({name, imagePath}) {
   return (
     <View style={{flex: 1}}>
-		<Card image = {imagePath}>
-			<Text style={{fontSize: 17, fontWeight: 'bold'}}>{name}</Text>
-		</Card>
+	    <TouchableOpacity onPress={() => {alert('Clicked ' + name);}}>
+			<Card image = {imagePath}>
+				<Text style={{fontSize: 17, fontWeight: 'bold'}}>{name}</Text>
+			</Card>
+		</TouchableOpacity>
 	</View>
   );
 }

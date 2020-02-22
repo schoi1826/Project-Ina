@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Button, View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createStackNavigator } from '@react-navigation/stack';
+import Asset from 'expo-asset';
 import { Icon, Card } from 'react-native-elements';
 
 function AllResources() {
@@ -10,7 +12,7 @@ function AllResources() {
 	     	<FlatList
 	     		data = {DATA}
 			    renderItem={({item}) => <ResourceItem name={item.name} imagePath={item.imagePath}
-			    description = {item.description}/>}
+			    description = {item.description} pdfPath={item.pdfPath}/>}
 			/>
 	    </View>
 	);
@@ -24,7 +26,7 @@ function PregnancyResources() {
 			    renderItem={({item, index}) => {
 			    	if(item.category == 'pregnancy') {
 				    	return <ResourceItem name={item.name} imagePath={item.imagePath}
-				    	description = {item.description}/>}
+				    	description = {item.description} pdfPath={item.pdfPath}/>}
 				    }
 			    }
 			/>
@@ -40,7 +42,7 @@ function AfterBirthResources() {
 			    renderItem={({item, index}) => {
 			    	if(item.category == 'afterBirth') {
 				    	return <ResourceItem name={item.name} imagePath={item.imagePath}
-				    	description = {item.description}/>}
+				    	description = {item.description} pdfPath={item.pdfPath}/>}
 				    }
 			    }
 			/>
@@ -56,7 +58,7 @@ function YoungChildResources() {
 			    renderItem={({item, index}) => {
 			    	if(item.category == 'youngChild') {
 				    	return <ResourceItem name={item.name} imagePath={item.imagePath}
-				    	description = {item.description}/>}
+				    	description = {item.description} pdfPath={item.pdfPath}/>}
 				    }
 			    }
 			/>
@@ -72,7 +74,7 @@ function FinancesResources() {
 			    renderItem={({item, index}) => {
 			    	if(item.category == 'finances') {
 				    	return <ResourceItem name={item.name} imagePath={item.imagePath}
-				    	description = {item.description}/>}
+				    	description = {item.description} pdfPath={item.pdfPath}/>}
 				    }
 			    }
 			/>
@@ -80,10 +82,15 @@ function FinancesResources() {
 	);
 }
 
-function ResourceItem({name, imagePath, description}) {
+function ResourceItem({name, imagePath, pdfPath, description}) {
+  const navigation = useNavigation();
   return (
     <View style={{flex: 1}}>
-	    <TouchableOpacity onPress={() => {alert('Clicked ' + name);}}>
+	    <TouchableOpacity onPress={() => {
+	    	navigation.navigate('PDF', {
+	    		pdfPath: pdfPath,
+	    	});
+	    }}>
 			<Card image = {imagePath}>
 				<Text style={{fontSize: 17, fontWeight: 'bold'}}>{name}</Text>
 				<Text style ={{fontSize: 14, color: '#86878a'}}>{description}</Text>
@@ -141,6 +148,7 @@ const DATA = [
 		imagePath: require("./sd_breastfeeding.png"),
 		category: 'afterBirth',
 		id: 'breastfeedingPeerCounselor',
+		pdfPath: require('../assets/Breastfeeding_Peer_Counselor.pdf'),
 	},
 	{
 		name: 'Coteau',
@@ -148,6 +156,7 @@ const DATA = [
 		imagePath: require("./coteau.png"),
 		category: 'pregnancy',
 		id: 'coteau',
+		pdfPath: require('../assets/Coteau.pdf'),
 	},
 	{
 		name: 'Dakota Pride',
@@ -155,6 +164,7 @@ const DATA = [
 		imagePath: require("./dakota_pride.png"),
 		category: 'pregnancy',
 		id: 'dakotaPride',
+		pdfPath: require('../assets/Dakota_Pride.pdf'),
 	},
 	{
 		name: 'Head Start',
@@ -162,6 +172,7 @@ const DATA = [
 		imagePath: require("./swo_ehs.png"),
 		category: 'youngChild',
 		id: 'headStart',
+		pdfPath: require('../assets/Head_Start.pdf'),
 	},
 	{
 		name: 'Healthy Start',
@@ -169,6 +180,7 @@ const DATA = [
 		imagePath: require("./healthy_start.png"),
 		category: 'youngChild',
 		id: 'healthyStart',
+		pdfPath: require('../assets/Healthy_Start.pdf'),
 	},
 	{
 		name: 'IHS',
@@ -176,6 +188,7 @@ const DATA = [
 		imagePath: require("./ihs.png"),
 		category: 'pregnancy',
 		id: 'ihs',
+		pdfPath: require('../assets/IHS.pdf'),
 	},
 	{
 		name: 'IHS Dental',
@@ -183,6 +196,7 @@ const DATA = [
 		imagePath: require("./sisseton_dental.png"),
 		category: 'youngChild',
 		id: 'ihsDental',
+		pdfPath: require('../assets/IHS_Dental.pdf'),
 	},
 	{
 		name: 'IHS Nursing',
@@ -190,6 +204,7 @@ const DATA = [
 		imagePath: require("./sisseton_nurse.png"),
 		category: 'pregnancy',
 		id: 'ihsNursing',
+		pdfPath: require('../assets/IHS_Nursing.pdf'),
 	},
 	{
 		name: 'Little Steps Daycare',
@@ -197,6 +212,7 @@ const DATA = [
 		imagePath: require("./swo_daycare.png"),
 		category: 'pregnancy',
 		id: '',
+		pdfPath: require('../assets/Little_Steps_Daycare.pdf'),
 	},
 	{
 		name: 'Medicaid Eligibility',
@@ -204,6 +220,7 @@ const DATA = [
 		imagePath: require("./swo_benefits.png"),
 		category: 'finances',
 		id: 'medicaidEligibility',
+		pdfPath: require('../assets/Medicaid_Eligibility.pdf'),
 	},
 	{
 		name: 'Roberts County',
@@ -211,6 +228,7 @@ const DATA = [
 		imagePath: require("./nesd.png"),
 		category: 'pregnancy',
 		id: 'robertsCounty',
+		pdfPath: require('../assets/Roberts_County.pdf'),
 	},
 	{
 		name: 'Social Services',
@@ -218,6 +236,7 @@ const DATA = [
 		imagePath: require("./social_services.png"),
 		category: 'finances',
 		id: 'socialServices',
+		pdfPath: require('../assets/Social_Services.pdf'),
 	},
 	{
 		name: 'Special Education',
@@ -225,6 +244,7 @@ const DATA = [
 		imagePath: require("./swo_healthrep.png"),
 		category: 'pregnancy',
 		id: 'youngChild',
+		pdfPath: require('../assets/Special_Education.pdf'),
 	},
 	{
 		name: 'SWO Child Protection',
@@ -232,6 +252,7 @@ const DATA = [
 		imagePath: require("./sd_homevisiting.png"),
 		category: 'youngChild',
 		id: 'childProtection',
+		pdfPath: require('../assets/SWO_Child_Protection_Program.pdf'),
 	},
 	{
 		name: 'SWO Community Health Education',
@@ -239,6 +260,7 @@ const DATA = [
 		imagePath: require("./swo_healthed.png"),
 		category: 'pregnancy',
 		id: 'communityHealthEducation',
+		pdfPath: require('../assets/SWO_Community_Health_Education.pdf'),
 	},
 	{
 		name: 'SWO ECI',
@@ -246,6 +268,7 @@ const DATA = [
 		imagePath: require("./swo_intervention.png"),
 		category: 'youngChild',
 		id: 'eci',
+		pdfPath: require('../assets/SWO_Early_Childhood_Intervention.pdf'),
 	},
 	{
 		name: 'SWO Education',
@@ -253,6 +276,7 @@ const DATA = [
 		imagePath: require("./swo_education.png"),
 		category: 'pregnancy',
 		id: 'swoEducation',
+		pdfPath: require('../assets/SWO_Education.pdf'),
 	},
 	{
 		name: 'SWO Food Pantry',
@@ -260,6 +284,7 @@ const DATA = [
 		imagePath: require("./swo_food.png"),
 		category: 'youngChild',
 		id: 'foodPantry',
+		pdfPath: require('../assets/SWO_Food_Pantry.pdf'),
 	},
 	{
 		name: 'WIC',
@@ -267,5 +292,6 @@ const DATA = [
 		imagePath: require("./roberts.png"),
 		category: 'afterBirth',
 		id: 'wic',
+		pdfPath: require('../assets/WIC.pdf'),
 	},
 ]

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, View, Text, FlatList, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
+import PDFReader from 'rn-pdf-reader-js';
 
 export default class GlossaryScreen extends Component {
 	render() {
@@ -20,7 +21,9 @@ function GlossaryItem({name}) {
     <View style={{paddingTop: 18, paddingLeft: 7, height: 60, borderWidth: 1, borderColor: '#e1e1e1', backgroundColor: '#ffffff',
     flexDirection: 'row', justifyContent: 'flex-start'}}>
     	<Icon name='chevron-right' color='steelblue'/>
-    	<Text style={{fontSize: 17, textAlign: 'right'}} onPress={() => {alert('Clicked ' + name);}}>{name}</Text>
+    	<Text style={{fontSize: 17, textAlign: 'right'}} onPress={() => {
+    		
+    	}}>{name}</Text>
     </View>
   );
 }

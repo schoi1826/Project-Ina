@@ -3,7 +3,6 @@ import { Button, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack';
-import Asset from 'expo-asset';
 import { Icon, Card } from 'react-native-elements';
 
 function AllResources() {

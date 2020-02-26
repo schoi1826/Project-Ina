@@ -10,12 +10,16 @@ function AllResources() {
 	    <View style={{ flex: 1, paddingBottom: 20}}>
 	     	<FlatList
 	     		data = {DATA}
-			    renderItem={({item}) => <ResourceItem name={item.name} imagePath={item.imagePath}
-			    description = {item.description} pdfPath={item.pdfPath}/>}
+			    //renderItem={({item}) => <ResourceItem name={item.name} imagePath={item.imagePath}
+			    //description = {item.description} pdfPath={item.pdfPath}/>}
+			    renderItem={renderItemAll}
 			/>
 	    </View>
 	);
 }
+
+const renderItemAll = ({ item }) => (<ResourceItem name={item.name} imagePath={item.imagePath}
+			    description = {item.description} pdfPath={item.pdfPath}/>);
 
 function PregnancyResources() {
 	return (
@@ -80,6 +84,7 @@ function FinancesResources() {
 	    </View>
 	);
 }
+
 
 function ResourceItem({name, imagePath, pdfPath, description}) {
   const navigation = useNavigation();

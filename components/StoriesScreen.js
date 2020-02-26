@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 export default class StoriesScreen extends Component {
@@ -10,15 +10,20 @@ export default class StoriesScreen extends Component {
 			<View style={{flex: 1, paddingBottom: 20}}>
 				<FlatList
 			      data = {DATA}
-			      renderItem={({item}) => <StoryItem name={item.name} imagePath={item.imagePath}
-			      pdfPath={item.pdfPath} navigation={this.props.navigation}/>}
+			      //renderItem={({item}) => <StoryItem name={item.name} imagePath={item.imagePath}
+			      //pdfPath={item.pdfPath} navigation={this.props.navigation}/>}
+			      renderItem={renderItem}
 			    />
 		    </View>
 		);
 	}
 }
 
-function StoryItem({name, imagePath, pdfPath, navigation}) {
+const renderItem = ({ item }) => (<StoryItem name={item.name} imagePath={item.imagePath}
+			      pdfPath={item.pdfPath}/>);
+
+function StoryItem({name, imagePath, pdfPath}) {
+  const navigation = useNavigation();
   return (
     <View style={{flex: 1}}>
 	    <TouchableOpacity onPress={() => {

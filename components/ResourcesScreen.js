@@ -142,6 +142,14 @@ export default class ResourcesScreen extends Component {
 
 const DATA = [
 	{
+		name: 'Link Test',
+		description: 'Test',
+		imagePath: require("./sd_breastfeeding.png"),
+		category: 'afterBirth',
+		id: 'coteauTest',
+		pdfPath: require('../assets/Coteau_test.pdf'),
+	},
+	{
 		name: 'Breastfeeding Peer Counselor',
 		description: 'MCH Program',
 		imagePath: require("./sd_breastfeeding.png"),

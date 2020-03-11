@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Icon } from 'react-native-elements';
 
+import LocalData from './components/LocalData';
 import HomeScreen from './components/HomeScreen';
 import ChecklistScreen from './components/ChecklistScreen';
 import GlossaryScreen from './components/GlossaryScreen';

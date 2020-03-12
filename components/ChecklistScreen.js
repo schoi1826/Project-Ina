@@ -50,12 +50,12 @@ class List extends React.Component {
 
 	render() {
 		return (
-			<View style={{ flex: 1}}>
+			<View style={{ flex: 1, width: '100%' }}>
 		     	<FlatList
-		     		contentContainerStyle={{ flex: 1 }}
+		     		contentContainerStyle={{ flexGrow: 1 }}
 		     		data={this.state.data}
-		     		renderItem={({ item }) => 
-		     			<CheckBox title={item.id} checked={item.checked} onPress={() => this.handleCheck(item.key)} />
+		     		renderItem={({ item, index }) => 
+		     			<CheckBox title={item.id} checked={item.checked} onPress={() => this.handleCheck(index)} />
 		     		}
 		     		ListEmptyComponent={this.handleEmpty()}
 		     	/>

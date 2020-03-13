@@ -12,6 +12,7 @@ import StoriesScreen from './components/StoriesScreen';
 import MapScreen from './components/MapScreen';
 import CalendarScreen from './components/CalendarScreen';
 import PDFScreen from './components/PDFScreen';
+import BabyProgressScreen from './components/BabyProgressScreen';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +47,7 @@ function App() {
         <Stack.Screen name="Map" component={MapScreen} options={{title: 'Map Here!'}} />
         <Stack.Screen name="Calendar" component={CalendarScreen} options={{title: 'Calendar Here!'}} />
         <Stack.Screen name="PDF" component={PDFScreen} options={{title: ''}} />
+        <Stack.Screen name="BabyProgress" component={BabyProgressScreen} options={{title: 'Baby Progress Here!'}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 export default class HomeScreen extends Component {
@@ -7,7 +7,9 @@ export default class HomeScreen extends Component {
 		return (
 	        <View style={{flex: 1}}>
 		      <View style={{flex: 11, justifyContent: 'center', backgroundColor: 'skyblue'}}>
-		        <View style={{alignSelf: 'center', width: 250, height: 250, borderRadius: 250/2, backgroundColor: 'white'}}/>
+		      	<TouchableOpacity onPress={() => this.props.navigation.navigate('BabyProgress')}>
+		        	<View style={{alignSelf: 'center', width: 250, height: 250, borderRadius: 250/2, backgroundColor: 'white'}}/>
+		      	</TouchableOpacity>
 		      </View>
 		      <View style={{flex: 8, backgroundColor: 'steelblue'}}>
 		        <View style={{flex: 1, flexDirection: 'row'}}>

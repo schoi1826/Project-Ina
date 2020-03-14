@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform, AsyncStorage } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -23,7 +23,7 @@ export default class DatePickerScreen extends Component {
 		const category = this.props.route.params.category;
 		var date = new Date();
 
-		if(Platform.OS != 'android') {
+		if(Platform.OS != 'android') { //ios
 			return (
 				<View style={{ flex: 1, paddingTop: 150, backgroundColor: 'white'}}>
 					{this.state.show ? (
@@ -37,9 +37,18 @@ export default class DatePickerScreen extends Component {
 					
 					<Text style={{textAlign: 'center', fontSize: 22, fontWeight: 'bold', backgroundColor: 'steelblue', color: 'white',
 					padding: 15, marginTop: 10, shadowOffset: {width: 5, height: 5}, shadowColor: '#aaaaaa', shadowOpacity: 0.6}}
-					onPress={() => {
+					onPress={ async () => {
 						if(dateIsValid(category, date)) {
-				      		//save date (year, month, day)
+							if(category == 'DUE'){//pregnancy
+					      		await AsyncStorage.setItem('dueDay', JSON.stringify(date.getDate()));
+					      		await AsyncStorage.setItem('dueMonth', JSON.stringify(date.getMonth()));
+					      		await AsyncStorage.setItem('dueYear', JSON.stringify(date.getFullYear()));
+					      	}
+					      	else{ //young child
+					      		await AsyncStorage.setItem('birthDay', JSON.stringify(date.getDate()));
+				      			await AsyncStorage.setItem('birthMonth', JSON.stringify(date.getMonth()));
+				      			await AsyncStorage.setItem('birthYear', JSON.stringify(date.getFullYear()));
+					      	}
 				      		this.props.navigation.navigate('Home');
 				      	}
 				      	else
@@ -49,7 +58,7 @@ export default class DatePickerScreen extends Component {
 			);
 		}
 		
-		else{
+		else{ //android
 			return (
 				<View style={{ flex: 1, backgroundColor: 'white'}}>
 					{this.state.show ? (
@@ -57,10 +66,19 @@ export default class DatePickerScreen extends Component {
 						Please select a valid {category.toLowerCase()} date.</Text>
 					) : null }
 
-					<DateTimePicker value={date} onChange={(event, selectedDate) => {
+					<DateTimePicker value={date} onChange={ async (event, selectedDate) => {
 						if(dateIsValid(category, selectedDate)){
 							date = selectedDate;
-							//save date (year, month, day)
+							if(category == 'DUE'){//pregnancy
+					      		await AsyncStorage.setItem('dueDay', JSON.stringify(date.getDate()));
+					      		await AsyncStorage.setItem('dueMonth', JSON.stringify(date.getMonth()));
+					      		await AsyncStorage.setItem('dueYear', JSON.stringify(date.getFullYear()));
+					      	}
+					      	else{ //young child
+					      		await AsyncStorage.setItem('birthDay', JSON.stringify(date.getDate()));
+				      			await AsyncStorage.setItem('birthMonth', JSON.stringify(date.getMonth()));
+				      			await AsyncStorage.setItem('birthYear', JSON.stringify(date.getFullYear()));
+					      	}
 							this.props.navigation.navigate('Home');
 						}
 						else {

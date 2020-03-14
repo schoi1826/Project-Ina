@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, TouchableOpacity } from 'react-native';
+import { Button, View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 export default class HomeScreen extends Component {
@@ -7,12 +7,21 @@ export default class HomeScreen extends Component {
 		return (
 	        <View style={{flex: 1}}>
 		      <View style={{flex: 11, justifyContent: 'center', backgroundColor: 'skyblue'}}>
-		      	<TouchableOpacity onPress={() => {
-		      		var appMode = 0;
+		      	<TouchableOpacity onPress={ async () => {
+		      		var appMode = await AsyncStorage.getItem('appMode');
+		      		var dueDay = await AsyncStorage.getItem('dueDay');
+		      		var dueMonth = await AsyncStorage.getItem('dueMonth');
+		      		var dueYear = await AsyncStorage.getItem('dueYear');
+		      		var birthDay = await AsyncStorage.getItem('birthDay');
+		      		var birthMonth = await AsyncStorage.getItem('birthMonth');
+		      		var birthYear = await AsyncStorage.getItem('birthYear');
+
 		      		if(appMode == 0)
 		      			this.props.navigation.navigate('ModePicker');
-		      		else
-		      			this.props.navigation.navigate('BabyProgress', {appMode: appMode});
+		      		else if(appMode == 1) //pregnancy
+		      			this.props.navigation.navigate('BabyProgress', {appMode: appMode, day: dueDay, month: dueMonth, year: dueYear});
+		      		else if(appMode == 2) //young child
+		      			this.props.navigation.navigate('BabyProgress', {appMode: appMode, day: birthDay, month: birthMonth, year: birthYear});
 		      	}}>
 		        	<View style={{alignSelf: 'center', width: 250, height: 250, borderRadius: 250/2, backgroundColor: 'white',
 		        	justifyContent: 'center', alignItems: 'center'}}>

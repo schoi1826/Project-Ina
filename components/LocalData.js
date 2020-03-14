@@ -125,11 +125,29 @@ const trim3 = [
 	{id: 'Cope with late-pregnancy jitters', checked: false},
 ]
 
+var appMode = 0;
+
+var dueDay = null;
+var dueMonth = null;
+var dueYear = null;
+
+var birthDay = null;
+var birthMonth = null;
+var birthYear = null;
+
 try {
 	AsyncStorage.setItem('daily', JSON.stringify(daily))
 	AsyncStorage.setItem('trim1', JSON.stringify(trim1))
 	AsyncStorage.setItem('trim2', JSON.stringify(trim2))
 	AsyncStorage.setItem('trim3', JSON.stringify(trim3))
+	
+	AsyncStorage.setItem('appMode', JSON.stringify(appMode))
+	AsyncStorage.setItem('dueDay', JSON.stringify(dueDay))
+	AsyncStorage.setItem('dueMonth', JSON.stringify(dueMonth))
+	AsyncStorage.setItem('dueYear', JSON.stringify(dueYear))
+	AsyncStorage.setItem('birthDay', JSON.stringify(birthDay))
+	AsyncStorage.setItem('birthMonth', JSON.stringify(birthMonth))
+	AsyncStorage.setItem('birthYear', JSON.stringify(birthYear))
 } catch (err) {
 	alert(err)
 }

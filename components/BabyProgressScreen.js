@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, AsyncStorage } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
+
+var dueDay; var dueMonth; var dueYear; var birthDay; var birthMonth; var birthYear;
 
 export default class BabyProgressScreen extends Component {
 	render() {
 		const appMode = this.props.route.params.appMode;
 		if(appMode == 1) //pregnancy
-			return pregnancyMode(this.props.navigation);
+			return pregnancyMode(this.props);
 		else if(appMode == 2) //child under 3
-			return youngChildMode(this.props.navigation);
+			return youngChildMode(this.props);
 	}
 }
 
-function pregnancyMode(navigation){
+async function loadData(key){
+	return await AsyncStorage.getItem(key);
+}
+
+function pregnancyMode(parentReference){
 	//determine due Date
-	var dueDay = 13; var dueMonth = 3; var dueYear = 2020;
-	var dueDate = new Date(dueYear, dueMonth - 1, dueDay); //month shifted by 1 for zero-indexing
+	var dueDay = parentReference.route.params.day;
+	var dueMonth = parentReference.route.params.month; //months represented from 0-11
+	var dueYear = parentReference.route.params.year;
+	var dueDate = new Date(dueYear, dueMonth, dueDay);
 
 	//determine current Date
 	var currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
@@ -45,7 +53,7 @@ function pregnancyMode(navigation){
 				<View style={{marginTop: 40, marginLeft: 5}}>
 					<Text style={{fontSize: 23, fontWeight: "bold"}}>Week {weekData[week].id}</Text>
 					<Text style={{fontSize: 17, color: '#666666'}}>Trimester {trimesterData[trimester].id}</Text>
-					<Text style={{fontSize: 17, color: '#666666'}}>Due Date: {dueMonth}/{dueDay}/{dueYear}</Text>
+					<Text style={{fontSize: 17, color: '#666666'}}>Due Date: {parseInt(dueMonth) + 1}/{dueDay}/{dueYear}</Text>
 				</View>
 			</View>
 
@@ -57,7 +65,7 @@ function pregnancyMode(navigation){
 
 				<Text style={{fontSize: 17, color: 'steelblue', fontWeight: 'bold'}}
 				onPress={() => {
-					navigation.navigate('ModePicker');
+					parentReference.navigation.navigate('ModePicker');
 				}}>CHANGE DUE DATE</Text>
 
 				<Text>{"\n"}</Text>
@@ -74,14 +82,15 @@ function pregnancyMode(navigation){
 
 
 
-function youngChildMode(navigation){
+function youngChildMode(parentReference){
 	//determine birth Date
-	var birthDay = 12; var birthMonth = 2; var birthYear = 2019;
-	var birthDate = new Date(birthYear, birthMonth - 1, birthDay); //month shifted by 1 for zero-indexing
+	var birthDay = parentReference.route.params.day;
+	var birthMonth = parentReference.route.params.month; //months represented from 0-11
+	var birthYear = parentReference.route.params.year;
+	var birthDate = new Date(birthYear, birthMonth, birthDay);
 
 	//determine current Date
 	var currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-	console.log(birthDate);
 
 	//use difference between current date and due date to determine current month/week and progress
 	//Math.floor used to produce integer numbers
@@ -97,7 +106,7 @@ function youngChildMode(navigation){
 					<Text style={{fontSize: 17, color: '#666666'}}>Birth Date: {birthMonth}/{birthDay}/{birthYear}</Text>
 					<Text style={{fontSize: 17, color: 'steelblue', marginTop: 10, fontWeight: 'bold'}}
 					onPress={() => {
-						navigation.navigate('ModePicker');
+						parentReference.navigation.navigate('ModePicker');
 					}}>CHANGE BIRTH DATE</Text>
 				</View>
 			</View>

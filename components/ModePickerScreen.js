@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, AsyncStorage } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -11,13 +11,13 @@ export default class ModePickerScreen extends Component {
 					<Text style={{textAlign: 'center', margin: 20, marginTop: 50, fontSize: 21, color: 'white', fontWeight: 'bold'}}>
 					Please select how you would like to use this app.</Text>
 					
-					<Text style={styles.box} onPress={() => {
-						//save appMode = 1
+					<Text style={styles.box} onPress={ async () => {
+						await AsyncStorage.setItem('appMode', JSON.stringify(1));
 						this.props.navigation.navigate('DatePicker', {category: "DUE"});
 					}}>I'M PREGNANT</Text>
 					
-					<Text style={styles.box} onPress={() => {
-						//save appMode = 2
+					<Text style={styles.box} onPress={ async () => {
+						await AsyncStorage.setItem('appMode', JSON.stringify(2));
 						this.props.navigation.navigate('DatePicker', {category: "BIRTH"});
 					}}>MY BABY IS UNDER 3 YEARS OLD</Text>
 				</LinearGradient>

@@ -1,68 +1,119 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 export default class BabyProgressScreen extends Component {
 	render() {
-		//determine current Date
-		//month shifted by 1 to accomodate zero-indexing
-		var currentDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate());
-
-		//determine due Date
-		var dueDay = 13;
-		var dueMonth = 3;
-		var dueYear = 2020;
-		var dueDate = new Date(dueYear, dueMonth, dueDay);
-
-		//use difference between current date and due date to determine current month/week and progress
-		//Math.floor used to produce integer numbers
-		var differenceInDays = Math.floor((dueDate.getTime() - currentDate.getTime())/(1000 * 60 * 60 * 24)) + 1;
-		console.log(differenceInDays);
-		var month = Math.floor(differenceInDays / 30.4) + 1; //month shifted by 1 to accomodate zero-indexing
-        var week = 40 - (differenceInDays / 7); //keep as a decimal to accurately calculate progress
-        var progress = Math.floor((week / 40) * 100);
-        week = Math.floor(week);
-        console.log(week);
-
-        //if week < 0 (due date before current)
-        //if week > 39 (due date after 9 months)
-
-        //determine current trimester, shifted by 1 to accomodate zero-indexing
-        var trimester = 0;
-        if(week > 27)
-        	trimester = 2;
-        else if(week > 13)
-        	trimester = 1;
-        else
-        	trimester = 0;
-
-		return (
-			<View style={{flex: 1, backgroundColor: '#ffffff'}}>
-				<View style={{flexDirection: 'row'}}>
-					<Image source={weekData[week].imagePath} style={{width: 150, height: 150}}/>
-					<View style={{marginTop: 40, marginLeft: 5}}>
-						<Text style={{fontSize: 23, fontWeight: "bold"}}>Week  {weekData[week].id}</Text>
-						<Text style={{fontSize: 17, color: '#666666'}}>Trimester {trimesterData[trimester].id}</Text>
-						<Text style={{fontSize: 17, color: '#666666'}}>Due Date: {dueMonth}/{dueDay}/{dueYear}</Text>
-					</View>
-				</View>
-
-				<View style={{marginLeft: 15, marginRight: 15}}>
-					<Text style={{fontSize: 23}}>Progress: {progress}%</Text>
-					<ProgressBar style="height: 20" progress={progress / 100} color='steelblue'/>
-					<Text>{"\n"}</Text>
-
-					<Text style={{marginBottom: 8, fontSize: 23, fontWeight: "bold"}}>Trimester {trimesterData[trimester].id} Facts</Text>
-					<Text style={{fontSize: 17, color: '#666666'}}>{trimesterData[trimester].description}</Text>
-					<Text>{"\n"}</Text>
-					<Text style={{marginBottom: 8, fontSize: 23, fontWeight: "bold"}}>Week {weekData[week].id} Facts</Text>
-					<Text style={{fontSize: 17, color: '#666666'}}>{weekData[week].description}</Text>
-				</View>
-			</View>
-		);
+		const appMode = this.props.route.params.appMode;
+		if(appMode == 1) //pregnancy
+			return pregnancyMode(this.props.navigation);
+		else if(appMode == 2) //child under 3
+			return youngChildMode(this.props.navigation);
 	}
 }
 
+function pregnancyMode(navigation){
+	//determine due Date
+	var dueDay = 13; var dueMonth = 3; var dueYear = 2020;
+	var dueDate = new Date(dueYear, dueMonth - 1, dueDay); //month shifted by 1 for zero-indexing
+
+	//determine current Date
+	var currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+
+	//use difference between current date and due date to determine current month/week and progress
+	//Math.floor used to produce integer numbers
+	var differenceInDays = Math.floor((dueDate.getTime() - currentDate.getTime())/(1000 * 60 * 60 * 24)) + 1;
+	var month = Math.floor(differenceInDays / 30.4);
+    var week = 40 - (differenceInDays / 7); //keep as a decimal to accurately calculate progress
+    var progress = Math.floor((week / 40) * 100);
+    week = Math.floor(week);
+
+    //determine current trimester, shifted by 1 to accomodate zero-indexing
+    var trimester = 0;
+    if(week > 27)
+    	trimester = 2;
+    else if(week > 13)
+    	trimester = 1;
+    else
+    	trimester = 0;
+
+	return (
+		<View style={{flex: 1, backgroundColor: '#ffffff'}}>
+			<View style={{flexDirection: 'row'}}>
+				<Image source={weekData[week].imagePath} style={{width: 150, height: 150}}/>
+				<View style={{marginTop: 40, marginLeft: 5}}>
+					<Text style={{fontSize: 23, fontWeight: "bold"}}>Week {weekData[week].id}</Text>
+					<Text style={{fontSize: 17, color: '#666666'}}>Trimester {trimesterData[trimester].id}</Text>
+					<Text style={{fontSize: 17, color: '#666666'}}>Due Date: {dueMonth}/{dueDay}/{dueYear}</Text>
+				</View>
+			</View>
+
+			<View style={{marginLeft: 15, marginRight: 15}}>
+				<Text style={{fontSize: 23}}>Progress: {progress}%</Text>
+				<ProgressBar style="height: 20" progress={progress / 100} color='steelblue'/>
+
+				<Text>{"\n"}</Text>
+
+				<Text style={{fontSize: 17, color: 'steelblue', fontWeight: 'bold'}}
+				onPress={() => {
+					navigation.navigate('ModePicker');
+				}}>CHANGE DUE DATE</Text>
+
+				<Text>{"\n"}</Text>
+
+				<Text style={{marginBottom: 8, fontSize: 23, fontWeight: "bold"}}>Trimester {trimesterData[trimester].id} Facts</Text>
+				<Text style={{fontSize: 17, color: '#666666'}}>{trimesterData[trimester].description}</Text>
+				<Text>{"\n"}</Text>
+				<Text style={{marginBottom: 8, fontSize: 23, fontWeight: "bold"}}>Week {weekData[week].id} Facts</Text>
+				<Text style={{fontSize: 17, color: '#666666'}}>{weekData[week].description}</Text>
+			</View>
+		</View>
+	);
+}
+
+
+
+function youngChildMode(navigation){
+	//determine birth Date
+	var birthDay = 12; var birthMonth = 2; var birthYear = 2019;
+	var birthDate = new Date(birthYear, birthMonth - 1, birthDay); //month shifted by 1 for zero-indexing
+
+	//determine current Date
+	var currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+	console.log(birthDate);
+
+	//use difference between current date and due date to determine current month/week and progress
+	//Math.floor used to produce integer numbers
+	var differenceInDays = Math.floor((currentDate.getTime() - birthDate.getTime())/(1000 * 60 * 60 * 24)) + 1;
+	var month = Math.floor(differenceInDays / 30.4); //goes from 0-35
+
+	return(
+		<View style={{flex: 1, backgroundColor: '#ffffff'}}>
+			<View style={{flexDirection: 'row'}}>
+				<Image source={require("../assets/images/baby.png")} style={{width: 120, height: 150, margin: 15}}/>
+				<View style={{marginTop: 40, marginLeft: 5}}>
+					<Text style={{fontSize: 23, fontWeight: "bold"}}>Month {monthData[month].id}</Text>
+					<Text style={{fontSize: 17, color: '#666666'}}>Birth Date: {birthMonth}/{birthDay}/{birthYear}</Text>
+					<Text style={{fontSize: 17, color: 'steelblue', marginTop: 10, fontWeight: 'bold'}}
+					onPress={() => {
+						navigation.navigate('ModePicker');
+					}}>CHANGE BIRTH DATE</Text>
+				</View>
+			</View>
+
+			<View style={{marginLeft: 15, marginRight: 15, marginTop: 20}}>
+				<Text style={{marginBottom: 8, fontSize: 23, fontWeight: "bold"}}>Month {monthData[month].id} Facts</Text>
+				<Text style={{fontSize: 17, color: '#666666'}}>{monthData[month].description}</Text>
+			</View>
+		</View>
+	);
+}
+
+
+
+
+//DATA
 
 const weekData = [
 	{
@@ -280,4 +331,153 @@ const trimesterData = [
 		id: "3",
 		description: "You will look very pregnant now and regularly feel your baby wriggling around. It is a great time to be shopping for baby!",
 	}
+]
+
+
+
+const monthData = [
+	{
+		id: 1,
+		description: "\u2022 Most babies will be able to suck well, focus on a face, and lift their heads briefly.\n\n\u2022 It is normal for baby’s to sleep up to 18 hours out of 24 a day when they are younger than 3 months, but not more than 1 to 3 hours at a time.\n\n\u2022 Play with your baby, keeping in mind that he/she can only see between 8-12 inches in front of his or her face. While you’re enjoying this one-on-one time, she’ll learn how to identify you by sight and sound at the same time you’re helping her to develop motor and cognitive skills.",
+	},
+	{
+		id: 2,
+		description: "\u2022 If your baby hasn\'t done so already, your baby is about to crack a spectacular toothless smile.\n\n\u2022 She may also laugh, coo, and recognize your face and your voice about now.\n\n\u2022 Start trying to recognize signs that your baby is tired (rubbing his eyes, flicking his ear with his hand, losing interest in people and toys), and put your baby down in his crib when you see them to help regulate his sleep.",
+	},        
+	{
+		id: 3,
+		description: "\u2022 Your baby will have started or will start making their first sounds, especially different vowel noises.\n\n\u2022 Your baby will continue to be more active.\n\n\u2022 Be careful about baby safety — he\'s still pretty teeny and vulnerable to a host of serious injuries including shaken-baby syndrome. Hold off on the horseplay for now and focus on cuddles for a while longer.",
+	},
+	{
+		id: 4,
+		description: "\u2022 By this age, your baby can raise up on her arms when placed on her tummy (thanks to all the supervised tummy time you give her) and keep her head level when propped in a sitting position.\n\n\u2022 He might even turn in the direction of your voice and complain if you take away his toy.\n\n\u2022 You should still only be feeding your baby breast milk or formula at this age.",
+	},
+	{
+		id: 5,
+		description: "\u2022 Your baby has learned object permanence, so he’ll probably love playing peek-a-boo or finding “hidden” items.\n\n\u2022 Your baby can start eating solids now.\n\n\u2022 Eczema and food allergies often emerge around now, so be on the look out.\n\n\u2022 For allergies, introduce new foods one at a time and wait two or three days before offering another new food. Keeping a food log can also help you pinpoint the cause if your baby has an adverse reaction.",
+	},
+	{
+		id: 6,
+		description: "\u2022 Your baby\'s probably able to bear weight on her legs when you hold her upright and may even be ready to hit the road, albeit at a crawl.\n\n\u2022 If your baby is still not sleeping through the night, this may be a good time to consider some sleep strategies, like showing him the difference between night time and day time through different lights and sounds.",
+	},
+	{
+		id: 7,
+		description: "\u2022 Your baby can or will soon be able sit without support, and wave or play patty-cake.\n\n\u2022 During this and the surrounding months, your child should eat a diet similar o around 1-3 teaspoons fruit in four feedings, 1-3 teaspoon vegetables in four feedings, and 3 to 9 tablespoons cereal in 2 or 3 feedings in addition to formula or breast milk.",
+	},
+	{
+		id: 8,
+		description: "\u2022 Gone are the days when your baby would stay where you plopped her. Most critters are ready to roll…and scoot, creep, crawl, or cruise.\n\n\u2022 If baby’s show readiness for finger foods (like transferring items between hands and moving jaw in a chewing motion), you can start to feed her things like O-shaped cereal, small bits of scrambled eggs, well-cooked pieces of potato, or teething crackers.",
+	},
+	{
+		id: 9,
+		description: "\u2022 Listen up, Mom, and you\'ll start to hear emerging baby speech patterns. Also, your baby will probably be able to respond to simple commands (“Give mommy the cup”).\n\n\u2022 Your easy-eater may become picky around now—you can mediate this by laying out a few nibbles for her to select from, and let her pick and choose.",
+	},
+	{
+		id: 10,
+		description: "\u2022 Your baby will be able to stand holding on, and may be able to stand alone (for a second) or even walk unassisted (the chase begins, Mom!).\n\n\u2022 You (and/or your baby) may be ready to wean (or not) so make a plan (though be ready to revise your timetable, perhaps more than once).",
+	},
+	{
+		id: 11,
+		description: "\u2022 Your baby loves games — especially those that involve pointing — and his interest in books will grow exponentially as he begins to comprehend more and recognize familiar pictures.\n\n\u2022 A few things not to be concerned about: bowed legs (almost always normal and temporary) and hitting milestones later than his peers.\n\n\u2022Children learn best and build confidence when you let them learn at their own pace, but if you\'re truly concerned, check with your pediatrician.",
+	},
+	{
+		id: 12,
+		description: "\u2022 One-year-olds are pretty good at doing a few things for themselves, such as eating with their fingers, helping their parents dress them, and turning the pages of a storybook. Your baby should be starting to use a few everyday items correctly, including a spoon, telephone, and hairbrush.\n\n\u2022 At this point, your baby can transition from human milk to cow milk (start with whole milk), and eat honey.",
+	},
+	{
+		id: 13,
+		description: "\u2022 Your baby will begin to stand on his or her own well.\n\n\u2022 Your little one can still choke on chunks of food. Never offer peanuts, whole grapes, cherry tomatoes (unless they\'re cut in quarters), whole carrots, seeds (i.e., processed pumpkin or sunflower seeds), nor whole or large sections of hot dogs.",
+	},
+	{
+		id: 14,
+		description: "\u2022 Your baby will probably be able to walk well on his own.\n\n\u2022 Don\'t restrict fats from your baby’s menu at this point. Babies and young toddlers should get about half of their calories from fat, which are very important for their growth and development at this age.",
+	},
+	{
+		id: 15,
+		description: "\u2022 About half of baby’s can walk backwards by 15 months.\n\n\u2022 The generally agreeable nature of a 12-month-old can morph overnight into something more exhausting. Rigid, contrarian behavior shows that your child is beginning to understand a huge concept: She\'s a separate person from you.\n\n\u2022 Baby’s need about 1,000 calories divided among three meals and two snacks per day for good nutrition. Don\'t count on your child always eating it that way though—the eating habits of toddlers are erratic and unpredictable from one day to the next!",
+	},
+	{
+		id: 16,
+		description: "\u2022 Your baby will be hard at work understanding rules (and also testing their limits).\n\n\u2022 Bedtime will go more smoothly if you establish a routine your child can count on (like a bath, putting on pajamas, or reading a book).",
+	},
+	{
+		id: 17,
+		description: "\u2022 About half of babies at 17 months can walk up stairs with help.\n\n\u2022 Lisping and mixing regular words with babbling phrases isn\'t unusual at 17 months. As your child\'s tongue and mouth muscles develop, enunciation should improve. Help him out by repeating what he says.",
+	},
+	{
+		id: 18,
+		description: "\u2022 You baby should be able to speak at least 15 words by the end of 18 months.\n\n\u2022 Don’t worry if your toddler suddenly decides to hate milk. Keep serving it, but don’t force her to drink it. Serve other diary products as well to make sure she is getting enough calcium.",
+	},
+	{
+		id: 19,
+		description: "\u2022 Your baby has a vocabulary of anywhere from 10 to 50 words.\n\n\u2022 Your baby may also start testing backwards and sideways movements.\n\n\u2022 Your baby needs between 11-14 hours of sleep a day.",
+	},
+	{
+		id: 20,
+		description: "\u2022 Your baby will start exploring its artistic skills, drawing simple lines and shapes.\n\n\u2022 Your baby will start experimenting with fuller, simple sentences.\n\n\u2022 Your baby needs between 11-14 hours of sleep a day.",
+	},
+     {
+		id: 21,
+		description: "\u2022 Your baby will begin to test its balance and climbing ability.\n\n\u2022 Your baby can also now begin naming most body parts.\n\n\u2022 Your baby needs between 11-14 hours of sleep a day.",
+	},
+	{
+		id: 22,
+		description: "\u2022 Your baby is beginning to explore its dexterity.\n\n\u2022 Your baby can also start to ask simple questions.\n\n\u2022 Your baby needs between 11-14 hours of sleep a day.",
+	},
+	{
+		id: 23,
+		description: "",
+	},
+	{
+		id: 24,
+		description: "",
+	},
+	{
+		id: 25,
+		description: "",
+	},
+	{
+		id: 26,
+		description: "",
+	},
+	{
+		id: 27,
+		description: "",
+	},
+	{
+		id: 28,
+		description: "",
+	},
+	{
+		id: 29,
+		description: "",
+	},
+	{
+		id: 30,
+		description: "",
+	},
+	{
+		id: 31,
+		description: "",
+	},
+	{
+		id: 32,
+		description: "",
+	},
+	{
+		id: 33,
+		description: "",
+	},
+	{
+		id: 34,
+		description: "",
+	},
+	{
+		id: 35,
+		description: "",
+	},
+	{
+		id: 36,
+		description: "",
+	},
 ]

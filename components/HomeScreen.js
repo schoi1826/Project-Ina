@@ -7,10 +7,22 @@ export default class HomeScreen extends Component {
 		return (
 	        <View style={{flex: 1}}>
 		      <View style={{flex: 11, justifyContent: 'center', backgroundColor: 'skyblue'}}>
-		      	<TouchableOpacity onPress={() => this.props.navigation.navigate('BabyProgress')}>
-		        	<View style={{alignSelf: 'center', width: 250, height: 250, borderRadius: 250/2, backgroundColor: 'white'}}/>
+		      	<TouchableOpacity onPress={() => {
+		      		var appMode = 0;
+		      		if(appMode == 0)
+		      			this.props.navigation.navigate('ModePicker');
+		      		else
+		      			this.props.navigation.navigate('BabyProgress', {appMode: appMode});
+		      	}}>
+		        	<View style={{alignSelf: 'center', width: 250, height: 250, borderRadius: 250/2, backgroundColor: 'white',
+		        	justifyContent: 'center', alignItems: 'center'}}>
+		        		<Text style={{fontSize: 25, backgroundColor: 'steelblue', color: 'white', padding: 10,
+		        		shadowOffset: {width: 5, height: 5}, shadowColor: '#aaaaaa', shadowOpacity: 0.6}}>
+		        		Enter Due Date</Text>
+		        	</View>
 		      	</TouchableOpacity>
 		      </View>
+		      
 		      <View style={{flex: 8, backgroundColor: 'steelblue'}}>
 		        <View style={{flex: 1, flexDirection: 'row'}}>
 		          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

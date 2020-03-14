@@ -13,6 +13,8 @@ import MapScreen from './components/MapScreen';
 import CalendarScreen from './components/CalendarScreen';
 import PDFScreen from './components/PDFScreen';
 import BabyProgressScreen from './components/BabyProgressScreen';
+import ModePickerScreen from './components/ModePickerScreen';
+import DatePickerScreen from './components/DatePickerScreen';
 
 const Stack = createStackNavigator();
 
@@ -48,6 +50,8 @@ function App() {
         <Stack.Screen name="Calendar" component={CalendarScreen} options={{title: 'Calendar Here!'}} />
         <Stack.Screen name="PDF" component={PDFScreen} options={{title: ''}} />
         <Stack.Screen name="BabyProgress" component={BabyProgressScreen} options={{title: 'Baby Progress Here!'}} />
+        <Stack.Screen name="ModePicker" component={ModePickerScreen} options={{title: 'Mode Picker Here!'}} />
+        <Stack.Screen name="DatePicker" component={DatePickerScreen} options={{title: 'Date Picker Here!'}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

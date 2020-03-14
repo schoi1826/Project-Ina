@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { Button, View, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+import ModalScreen from './ModalScreen';
+
 export default class HomeScreen extends Component {
 	render() {
 		return (
 	        <View style={{flex: 1}}>
+	          <ModalScreen />
 		      <View style={{flex: 11, justifyContent: 'center', backgroundColor: 'skyblue'}}>
 		        <View style={{alignSelf: 'center', width: 250, height: 250, borderRadius: 250/2, backgroundColor: 'white'}}/>
 		      </View>

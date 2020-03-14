@@ -135,6 +135,8 @@ var birthDay = null;
 var birthMonth = null;
 var birthYear = null;
 
+var imagePath = null;
+
 try {
 	AsyncStorage.setItem('daily', JSON.stringify(daily))
 	AsyncStorage.setItem('trim1', JSON.stringify(trim1))
@@ -148,6 +150,7 @@ try {
 	AsyncStorage.setItem('birthDay', JSON.stringify(birthDay))
 	AsyncStorage.setItem('birthMonth', JSON.stringify(birthMonth))
 	AsyncStorage.setItem('birthYear', JSON.stringify(birthYear))
+	AsyncStorage.setItem('imagePath', JSON.stringify(imagePath))
 } catch (err) {
 	alert(err)
 }

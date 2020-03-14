@@ -49,6 +49,7 @@ export default class DatePickerScreen extends Component {
 				      			await AsyncStorage.setItem('birthMonth', JSON.stringify(date.getMonth()));
 				      			await AsyncStorage.setItem('birthYear', JSON.stringify(date.getFullYear()));
 					      	}
+					      	await AsyncStorage.setItem('imagePath', JSON.stringify(require("../assets/images/baby_progress/refresh.png")));
 				      		this.props.navigation.navigate('Home');
 				      	}
 				      	else
@@ -79,6 +80,7 @@ export default class DatePickerScreen extends Component {
 				      			await AsyncStorage.setItem('birthMonth', JSON.stringify(date.getMonth()));
 				      			await AsyncStorage.setItem('birthYear', JSON.stringify(date.getFullYear()));
 					      	}
+					      	await AsyncStorage.setItem('imagePath', JSON.stringify(require("../assets/images/baby_progress/refresh.png")));
 							this.props.navigation.navigate('Home');
 						}
 						else {

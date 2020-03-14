@@ -15,8 +15,8 @@ export default class BabyProgressScreen extends Component {
 	}
 }
 
-async function loadData(key){
-	return await AsyncStorage.getItem(key);
+async function setImagePath(path){
+	await AsyncStorage.setItem('imagePath', JSON.stringify(path));
 }
 
 function pregnancyMode(parentReference){
@@ -36,6 +36,9 @@ function pregnancyMode(parentReference){
     var week = 40 - (differenceInDays / 7); //keep as a decimal to accurately calculate progress
     var progress = Math.floor((week / 40) * 100);
     week = Math.floor(week);
+
+    //update AsyncStorage with new home page image
+    setImagePath(weekData[week].imagePath);
 
     //determine current trimester, shifted by 1 to accomodate zero-indexing
     var trimester = 0;
@@ -96,6 +99,9 @@ function youngChildMode(parentReference){
 	//Math.floor used to produce integer numbers
 	var differenceInDays = Math.floor((currentDate.getTime() - birthDate.getTime())/(1000 * 60 * 60 * 24)) + 1;
 	var month = Math.floor(differenceInDays / 30.4); //goes from 0-35
+
+	//update AsyncStorage with new home page image
+    setImagePath(require("../assets/images/baby.png"));
 
 	return(
 		<View style={{flex: 1, backgroundColor: '#ffffff'}}>

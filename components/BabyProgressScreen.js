@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, AsyncStorage } from 'react-native';
+import { View, Text, Image, AsyncStorage, ScrollView } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
@@ -50,7 +50,7 @@ function pregnancyMode(parentReference){
     	trimester = 0;
 
 	return (
-		<View style={{flex: 1, backgroundColor: '#ffffff'}}>
+		<ScrollView style={{flex: 1, backgroundColor: '#ffffff'}}>
 			<View style={{flexDirection: 'row'}}>
 				<Image source={weekData[week].imagePath} style={{width: 150, height: 150}}/>
 				<View style={{marginTop: 40, marginLeft: 5}}>
@@ -79,7 +79,7 @@ function pregnancyMode(parentReference){
 				<Text style={{marginBottom: 8, fontSize: 23, fontWeight: "bold"}}>Week {weekData[week].id} Facts</Text>
 				<Text style={{fontSize: 17, color: '#666666'}}>{weekData[week].description}</Text>
 			</View>
-		</View>
+		</ScrollView>
 	);
 }
 

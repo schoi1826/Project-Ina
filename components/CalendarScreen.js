@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, View, Text, Linking, FlatList } from 'react-native';
 import { WebView } from 'react-native-webview';
-import * as Google from 'expo-google-app-auth';
 
 export default class CalendarScreen extends Component {
 	render() {
@@ -21,13 +20,7 @@ export default class CalendarScreen extends Component {
 	}
 }
 
-/*function getEventsAsync(){
-	return fetch('https://www.googleapis.com/calendar/v3/calendars/9lvrp56s3183tjghla9ufie8l8@group.calendar.google.com/events')
-	.then(response => response.json())
-	.then(responseJson => {
-		return responseJson.description;
-	})
-	.catch(error => {
-		console.log(error);
-	});
+/*async function getEventsAsync(){
+	var response = await fetch('https://www.googleapis.com/calendar/v3/calendars/9lvrp56s3183tjghla9ufie8l8@group.calendar.google.com/events');
+	var responseJson = JSON.stringify(response);
 }*/

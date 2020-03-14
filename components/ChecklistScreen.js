@@ -1,39 +1,67 @@
 import React, { Component } from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View, Text, FlatList, AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Icon } from 'react-native-elements';
+import { Icon, CheckBox } from 'react-native-elements';
 
-function DailyList() {
-	return (
-	    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-	     	<Text>Daily!</Text>
-	    </View>
-	);
-}
+class List extends React.Component {
+	constructor(props) {
+		super(props);
+		this.handleCheck = this.handleCheck.bind(this);
+		this.state = {
+			type: this.props.route.params.type ?? '',
+			data: []
+		};
+	}
 
-function FirstList() {
-	return (
-	    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-	     	<Text>First Trimester!</Text>
-	    </View>
-	);
-}
+	componentDidMount = () => {
+		this.setState({data: this.loadData(this.state.type)})
+	}
 
-function SecondList() {
-	return (
-	    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-	     	<Text>Second Trimester!</Text>
-	    </View>
-	);
-}
+	loadData = async () => {
+		try {
+			const raw = await AsyncStorage.getItem(this.state.type)
+			const parsed = JSON.parse(raw)
+			this.setState({data: parsed || []})
+		} catch (err) {
+			alert(err, 'Cannot load data!')
+		}
+	}
 
-function ThirdList() {
-	return (
-	    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-	     	<Text>Third Trimester!</Text>
-	    </View>
-	);
+	handleCheck = async (val) => {
+		try {
+			const a = await AsyncStorage.getItem(this.state.type)
+			const b = JSON.parse(a)
+			b[val].checked = !b[val].checked
+			await AsyncStorage.setItem(this.state.type, JSON.stringify(b))
+			this.setState({data: b})
+		} catch (err) {
+			alert(err, 'Cannot get data!')
+		}
+	}
+
+	handleEmpty = () => {
+		return (
+			<View style={{ flex: 1, justifyContent: 'center' }}>
+				<Text style={{ fontSize: 20, textAlign: 'center' }}>Nothing to do yet!</Text>
+			</View>
+		);
+	}
+
+	render() {
+		return (
+			<View style={{ flex: 1, width: '100%' }}>
+		     	<FlatList
+		     		contentContainerStyle={{ flexGrow: 1 }}
+		     		data={this.state.data}
+		     		renderItem={({ item, index }) => 
+		     			<CheckBox title={item.id} checked={item.checked} onPress={() => this.handleCheck(index)} />
+		     		}
+		     		ListEmptyComponent={this.handleEmpty()}
+		     	/>
+		    </View>
+		);
+	}
 }
 
 const Tab = createBottomTabNavigator();
@@ -63,10 +91,10 @@ export default class ChecklistScreen extends Component {
 					activeTintColor: 'steelblue',
 				}}
 			>
-				<Tab.Screen name="Daily" component={DailyList} />
-				<Tab.Screen name="First Trimester" component={FirstList} />
-				<Tab.Screen name="Second Trimester" component={SecondList} />
-				<Tab.Screen name="Third Trimester" component={ThirdList} />
+				<Tab.Screen name="Daily" component={List} initialParams={{type: 'daily'}} />
+				<Tab.Screen name="First Trimester" component={List} initialParams={{type: 'trim1'}} />
+				<Tab.Screen name="Second Trimester" component={List} initialParams={{type: 'trim2'}} />
+				<Tab.Screen name="Third Trimester" component={List} initialParams={{type: 'trim3'}} />
 			</Tab.Navigator>
 		);
 	}

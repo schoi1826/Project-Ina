@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Icon } from 'react-native-elements';
 
+import LocalData from './components/LocalData';
 import HomeScreen from './components/HomeScreen';
 import ChecklistScreen from './components/ChecklistScreen';
 import GlossaryScreen from './components/GlossaryScreen';
@@ -41,17 +42,19 @@ function App() {
           ),
         }}
       >
-        <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Homescreen Here!'}} />
-        <Stack.Screen name="Checklist" component={ChecklistScreen} options={{title: 'Checklists Here!'}} />
-        <Stack.Screen name="Glossary" component={GlossaryScreen} options={{title: 'Glossary Here!'}} />
-        <Stack.Screen name="Resources" component={ResourcesScreen} options={{title: 'Resources Here!'}} />
-        <Stack.Screen name="Stories" component={StoriesScreen} options={{title: 'Stories Here!'}} />
-        <Stack.Screen name="Map" component={MapScreen} options={{title: 'Map Here!'}} />
-        <Stack.Screen name="Calendar" component={CalendarScreen} options={{title: 'Calendar Here!'}} />
-        <Stack.Screen name="PDF" component={PDFScreen} options={{title: ''}} />
-        <Stack.Screen name="BabyProgress" component={BabyProgressScreen} options={{title: 'Baby Progress Here!'}} />
-        <Stack.Screen name="ModePicker" component={ModePickerScreen} options={{title: 'Mode Picker Here!'}} />
-        <Stack.Screen name="DatePicker" component={DatePickerScreen} options={{title: 'Date Picker Here!'}} />
+
+        <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Project Ina'}} />
+        <Stack.Screen name="Checklist" component={ChecklistScreen} />
+        <Stack.Screen name="Glossary" component={GlossaryScreen} />
+        <Stack.Screen name="Resources" component={ResourcesScreen} />
+        <Stack.Screen name="Stories" component={StoriesScreen} />
+        <Stack.Screen name="Map" component={MapScreen} />
+        <Stack.Screen name="Calendar" component={CalendarScreen} />
+        <Stack.Screen name="PDF" component={PDFScreen} />
+        <Stack.Screen name="BabyProgress" component={BabyProgressScreen} options={{title: 'Baby Progress'}} />
+        <Stack.Screen name="ModePicker" component={ModePickerScreen} options={{title: ''}} />
+        <Stack.Screen name="DatePicker" component={DatePickerScreen} options={{title: 'Date Picker'}} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

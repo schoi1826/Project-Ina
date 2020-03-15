@@ -46,7 +46,7 @@ function App() {
         <Stack.Screen name="Stories" component={StoriesScreen} />
         <Stack.Screen name="Map" component={MapScreen} />
         <Stack.Screen name="Calendar" component={CalendarScreen} />
-        <Stack.Screen name="PDF" component={PDFScreen} options={{title: 'PDF'}} />
+        <Stack.Screen name="PDF" component={PDFScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -125,11 +125,27 @@ const trim3 = [
 	{id: 'Cope with late-pregnancy jitters', checked: false},
 ]
 
+const map = [
+	{coordinates: {latitude: 45.568170, longitude: -97.061490}, title: 'Head Start', pdfPath: require('../assets/pdfs/resources/Head_Start.pdf')},
+	{coordinates: {latitude: 45.572700, longitude: -97.063040}, title: 'SWO Early Childhood Intervention', pdfPath: require('../assets/pdfs/resources/SWO_Early_Childhood_Intervention.pdf')},
+	{coordinates: {latitude: 45.657550, longitude: -97.016550}, title: 'IHS', pdfPath: require('../assets/pdfs/resources/IHS.pdf')},
+	{coordinates: {latitude: 45.667390, longitude: -97.045690}, title: 'Roberts County', pdfPath: require('../assets/pdfs/resources/Roberts_County.pdf')},
+	{coordinates: {latitude: 45.563680, longitude: -97.076940}, title: 'Dakota Pride', pdfPath: require('../assets/pdfs/resources/Dakota_Pride.pdf')},
+	{coordinates: {latitude: 45.657690, longitude: -97.050410}, title: 'Coteau', pdfPath: require('../assets/pdfs/resources/Coteau.pdf')},
+	{coordinates: {latitude: 45.568210, longitude: -97.066030}, title: 'Little Steps Daycare', pdfPath: require('../assets/pdfs/resources/Little_Steps_Daycare.pdf')},
+	{coordinates: {latitude: 45.660170, longitude: -97.050050}, title: 'WIC', pdfPath: require('../assets/pdfs/resources/WIC.pdf')},
+	{coordinates: {latitude: 45.665210, longitude: -97.049590}, title: 'Healthy Start', pdfPath: require('../assets/pdfs/resources/Healthy_Start.pdf')},
+	{coordinates: {latitude: 44.370310, longitude: -100.341570}, title: 'Social Services', pdfPath: require('../assets/pdfs/resources/Social_Services.pdf')},
+	{coordinates: {latitude: 45.665360, longitude: -97.061120}, title: 'Special Education', pdfPath: require('../assets/pdfs/resources/Special_Education.pdf')},
+	{coordinates: {latitude: 45.568200, longitude: -97.064440}, title: 'SWO Food Pantry', pdfPath: require('../assets/pdfs/resources/SWO_Food_Pantry.pdf')},
+]
+
 try {
 	AsyncStorage.setItem('daily', JSON.stringify(daily))
 	AsyncStorage.setItem('trim1', JSON.stringify(trim1))
 	AsyncStorage.setItem('trim2', JSON.stringify(trim2))
 	AsyncStorage.setItem('trim3', JSON.stringify(trim3))
+	AsyncStorage.setItem('map', JSON.stringify(map))
 } catch (err) {
 	alert(err)
 }

@@ -29,14 +29,6 @@ function App() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-          headerRight: () => (
-            <Icon 
-              name='more-vert' 
-              size={30} 
-              color="steelblue" 
-              onPress={() => {alert('Settings!');}}
-            />
-          ),
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Project Ina'}} />

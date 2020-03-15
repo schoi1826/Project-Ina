@@ -10,8 +10,6 @@ export default class StoriesScreen extends Component {
 			<View style={{flex: 1, paddingBottom: 20}}>
 				<FlatList
 			      data = {DATA}
-			      //renderItem={({item}) => <StoryItem name={item.name} imagePath={item.imagePath}
-			      //pdfPath={item.pdfPath} navigation={this.props.navigation}/>}
 			      renderItem={renderItem}
 			    />
 		    </View>
@@ -42,20 +40,20 @@ function StoryItem({name, imagePath, pdfPath}) {
 const DATA = [
 	{
 		name: 'Dakota Pregnancy Traditions',
-		imagePath: require("./pregnancy_traditions.png"),
+		imagePath: require("../assets/images/pregnancy_traditions.png"),
 		id: 'pregnacyTraditions',
-		pdfPath: require('../assets/Dakota_Pregnancy_Traditions.pdf'),
+		pdfPath: require('../assets/pdfs/stories/Dakota_Pregnancy_Traditions.pdf'),
 	},
 	{
 		name: 'Pregnancy as Sacred',
-		imagePath: require("./pregnancy_as_sacred.jpg"),
+		imagePath: require("../assets/images/pregnancy_as_sacred.jpg"),
 		id: 'pregnancyAsSacred',
-		pdfPath: require('../assets/Pregnancy_as_Sacred.pdf'),
+		pdfPath: require('../assets/pdfs/stories/Pregnancy_as_Sacred.pdf'),
 	},
 	{
 		name: 'The Woman in the Sky',
-		imagePath: require("./the_woman_in_the_sky.jpg"),
+		imagePath: require("../assets/images/the_woman_in_the_sky.jpg"),
 		id: 'womanInTheSky',
-		pdfPath: require('../assets/The_Woman_in_the_Sky.pdf'),
+		pdfPath: require('../assets/pdfs/stories/The_Woman_in_the_Sky.pdf'),
 	},
 ]

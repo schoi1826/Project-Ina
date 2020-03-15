@@ -42,7 +42,11 @@ export default class MapScreen extends Component {
 		      					coordinate={item.coordinates}
 		      					title={item.title}
 		      				>
-		      					<MapView.Callout onPress={() => {alert('TODO: link pdfs')} }>
+		      					<MapView.Callout onPress={() => {
+		      						this.props.navigation.navigate('PDF', {
+		      							pdfPath: item.pdfPath,
+		      						});
+		      					}}>
 		      						<Text>{item.title}</Text>
 		      					</MapView.Callout>
 		      				</MapView.Marker>

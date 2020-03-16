@@ -32,14 +32,6 @@ function App() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-          headerRight: () => (
-            <Icon 
-              name='more-vert' 
-              size={30} 
-              color="steelblue" 
-              onPress={() => {alert('Settings!');}}
-            />
-          ),
         }}
       >
 

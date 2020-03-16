@@ -3,6 +3,8 @@ import { Button, View, Text, TouchableOpacity, AsyncStorage, Image } from 'react
 import { Icon } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 
+import ModalScreen from './ModalScreen';
+
 export default class HomeScreen extends Component {
 	constructor(){
 		super();
@@ -38,6 +40,7 @@ export default class HomeScreen extends Component {
 	render() {
 		return (
 	        <View style={{flex: 1}}>
+	          <ModalScreen />
 		      <View style={{flex: 11, justifyContent: 'center', backgroundColor: 'skyblue'}}>
 		      	<TouchableOpacity onPress={ async () => {
 		      		try {

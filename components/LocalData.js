@@ -125,6 +125,18 @@ const trim3 = [
 	{id: 'Cope with late-pregnancy jitters', checked: false},
 ]
 
+var appMode = 0;
+
+var dueDay = null;
+var dueMonth = null;
+var dueYear = null;
+
+var birthDay = null;
+var birthMonth = null;
+var birthYear = null;
+
+var imagePath = null;
+
 const map = [
 	{coordinates: {latitude: 45.568170, longitude: -97.061490}, title: 'Head Start', pdfPath: require('../assets/pdfs/resources/Head_Start.pdf')},
 	{coordinates: {latitude: 45.572700, longitude: -97.063040}, title: 'SWO Early Childhood Intervention', pdfPath: require('../assets/pdfs/resources/SWO_Early_Childhood_Intervention.pdf')},
@@ -145,7 +157,18 @@ try {
 	AsyncStorage.setItem('trim1', JSON.stringify(trim1))
 	AsyncStorage.setItem('trim2', JSON.stringify(trim2))
 	AsyncStorage.setItem('trim3', JSON.stringify(trim3))
+	
+	AsyncStorage.setItem('appMode', JSON.stringify(appMode))
+	AsyncStorage.setItem('dueDay', JSON.stringify(dueDay))
+	AsyncStorage.setItem('dueMonth', JSON.stringify(dueMonth))
+	AsyncStorage.setItem('dueYear', JSON.stringify(dueYear))
+	AsyncStorage.setItem('birthDay', JSON.stringify(birthDay))
+	AsyncStorage.setItem('birthMonth', JSON.stringify(birthMonth))
+	AsyncStorage.setItem('birthYear', JSON.stringify(birthYear))
+	AsyncStorage.setItem('imagePath', JSON.stringify(imagePath))
+
 	AsyncStorage.setItem('map', JSON.stringify(map))
+
 } catch (err) {
 	alert(err)
 }

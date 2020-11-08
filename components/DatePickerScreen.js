@@ -43,14 +43,16 @@ export default class DatePickerScreen extends Component {
 					      		await AsyncStorage.setItem('dueDay', JSON.stringify(date.getDate()));
 					      		await AsyncStorage.setItem('dueMonth', JSON.stringify(date.getMonth()));
 					      		await AsyncStorage.setItem('dueYear', JSON.stringify(date.getFullYear()));
+					      		this.props.navigation.navigate('BabyProgress', {appMode: 1, dateUpdate: true,
+					      			day: date.getDate(), month: date.getMonth(), year: date.getFullYear()});
 					      	}
 					      	else{ //young child
 					      		await AsyncStorage.setItem('birthDay', JSON.stringify(date.getDate()));
 				      			await AsyncStorage.setItem('birthMonth', JSON.stringify(date.getMonth()));
 				      			await AsyncStorage.setItem('birthYear', JSON.stringify(date.getFullYear()));
+				      			this.props.navigation.navigate('BabyProgress', {appMode: 2, dateUpdate: true,
+				      				day: date.getDate(), month: date.getMonth(), year: date.getFullYear()});
 					      	}
-					      	await AsyncStorage.setItem('imagePath', JSON.stringify(require("../assets/images/baby_progress/refresh.png")));
-				      		this.props.navigation.navigate('Home');
 				      	}
 				      	else
 				      		this.ShowHideComponent();
@@ -74,14 +76,16 @@ export default class DatePickerScreen extends Component {
 					      		await AsyncStorage.setItem('dueDay', JSON.stringify(date.getDate()));
 					      		await AsyncStorage.setItem('dueMonth', JSON.stringify(date.getMonth()));
 					      		await AsyncStorage.setItem('dueYear', JSON.stringify(date.getFullYear()));
+					      		this.props.navigation.navigate('BabyProgress', {appMode: 1, dateUpdate: true,
+					      			day: date.getDate(), month: date.getMonth(), year: date.getFullYear()});
 					      	}
 					      	else{ //young child
 					      		await AsyncStorage.setItem('birthDay', JSON.stringify(date.getDate()));
 				      			await AsyncStorage.setItem('birthMonth', JSON.stringify(date.getMonth()));
 				      			await AsyncStorage.setItem('birthYear', JSON.stringify(date.getFullYear()));
+				      			this.props.navigation.navigate('BabyProgress', {appMode: 2, dateUpdate: true,
+				      				day: date.getDate(), month: date.getMonth(), year: date.getFullYear()});
 					      	}
-					      	await AsyncStorage.setItem('imagePath', JSON.stringify(require("../assets/images/baby_progress/refresh.png")));
-							this.props.navigation.navigate('Home');
 						}
 						else {
 							this.ShowHideComponent();

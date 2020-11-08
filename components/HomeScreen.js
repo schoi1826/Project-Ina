@@ -11,6 +11,7 @@ export default class HomeScreen extends Component {
 		this.state = {
 			dateSet: false,
 			imagePath: null,
+			dateText: null,
 		};
 	}
 
@@ -29,8 +30,9 @@ export default class HomeScreen extends Component {
 		try {
 			var appMode = await AsyncStorage.getItem('appMode');
 			var imagePath = await AsyncStorage.getItem('imagePath');
+			var dateText = await AsyncStorage.getItem('dateText');
 			if(appMode == 1 || appMode == 2)
-				this.setState({dateSet: true, imagePath: imagePath});
+				this.setState({dateSet: true, imagePath: imagePath, dateText: dateText});
 		}
 		catch(err){
 			alert(err, 'Cannot load data!');
@@ -66,7 +68,12 @@ export default class HomeScreen extends Component {
 		        	<View style={{alignSelf: 'center', width: 250, height: 250, borderRadius: 250/2, backgroundColor: 'white',
 		        	justifyContent: 'center', alignItems: 'center'}}>
 		        		{ this.state.dateSet ? (
-		        			<Image source={this.state.imagePath} style={{width: 200, height: 200, borderRadius: 200/2}}/>
+		        			<View style={{justifyContent: 'center', alignItems: 'center'}}>
+			        			<Image source={this.state.imagePath} style={{width: 230, height: 230, borderRadius: 230/2}}/>
+			        			<Text style={{position: 'absolute', bottom: 30, padding: 5, paddingLeft: 20, paddingRight: 20,
+			        			fontSize: 25, backgroundColor: 'black', color: 'white', opacity: 0.8, textAlign: 'center',
+			        			borderRadius: 15, overflow: 'hidden'}}>{this.state.dateText}</Text>
+			        		</View>
 			        	) : ( <Text style={{fontSize: 25, backgroundColor: 'steelblue', color: 'white', padding: 10,
 			        		shadowOffset: {width: 5, height: 5}, shadowColor: '#aaaaaa', shadowOpacity: 0.6}}>
 			        		Enter Due Date</Text> 

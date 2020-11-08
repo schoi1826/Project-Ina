@@ -19,6 +19,10 @@ async function setImagePath(path){
 	await AsyncStorage.setItem('imagePath', JSON.stringify(path));
 }
 
+async function setDateText(text){
+	await AsyncStorage.setItem('dateText', text);
+}
+
 function pregnancyMode(parentReference){
 	//determine due Date
 	var dueDay = parentReference.route.params.day;
@@ -37,8 +41,10 @@ function pregnancyMode(parentReference){
     var progress = Math.floor((week / 40) * 100);
     week = Math.floor(week);
 
-    //update AsyncStorage with new home page image
+    //update AsyncStorage with new home page image and week
     setImagePath(weekData[week].imagePath);
+    var dateText = "Week " + (week+1);
+    setDateText(dateText);
 
     //redirect to home page after setting imagePath if coming from DatePickerScreen
     if(parentReference.route.params.dateUpdate == true){
@@ -105,8 +111,10 @@ function youngChildMode(parentReference){
 	var differenceInDays = Math.floor((currentDate.getTime() - birthDate.getTime())/(1000 * 60 * 60 * 24)) + 1;
 	var month = Math.floor(differenceInDays / 30.4); //goes from 0-35
 
-	//update AsyncStorage with new home page image
+	//update AsyncStorage with new home page image and month
     setImagePath(require("../assets/images/baby.png"));
+    var dateText = "Month " + (month+1);
+    setDateText(dateText);
 
     //redirect to home page after setting imagePath if coming from DatePickerScreen
     if(parentReference.route.params.dateUpdate == true){

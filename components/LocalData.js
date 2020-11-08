@@ -136,6 +136,7 @@ var birthMonth = null;
 var birthYear = null;
 
 var imagePath = null;
+var dateText = null;
 
 const map = [
 	{coordinates: {latitude: 45.568170, longitude: -97.061490}, title: 'Head Start', pdfPath: require('../assets/pdfs/resources/Head_Start.pdf')},

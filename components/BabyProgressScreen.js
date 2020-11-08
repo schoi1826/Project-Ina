@@ -108,6 +108,11 @@ function youngChildMode(parentReference){
 	//update AsyncStorage with new home page image
     setImagePath(require("../assets/images/baby.png"));
 
+    //redirect to home page after setting imagePath if coming from DatePickerScreen
+    if(parentReference.route.params.dateUpdate == true){
+		parentReference.navigation.navigate('Home');
+	}
+
 	return(
 		<View style={{flex: 1, backgroundColor: '#ffffff'}}>
 			<View style={{flexDirection: 'row'}}>

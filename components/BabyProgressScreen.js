@@ -40,6 +40,11 @@ function pregnancyMode(parentReference){
     //update AsyncStorage with new home page image
     setImagePath(weekData[week].imagePath);
 
+    //redirect to home page after setting imagePath if coming from DatePickerScreen
+    if(parentReference.route.params.dateUpdate == true){
+		parentReference.navigation.navigate('Home');
+	}
+
     //determine current trimester, shifted by 1 to accomodate zero-indexing
     var trimester = 0;
     if(week > 27)

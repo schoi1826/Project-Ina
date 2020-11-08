@@ -53,8 +53,6 @@ export default class DatePickerScreen extends Component {
 				      			this.props.navigation.navigate('BabyProgress', {appMode: 2, dateUpdate: true,
 				      				day: date.getDate(), month: date.getMonth(), year: date.getFullYear()});
 					      	}
-					      	//await AsyncStorage.setItem('imagePath', JSON.stringify(require("../assets/images/baby_progress/refresh.png")));
-				      		//this.props.navigation.navigate('Home');
 				      	}
 				      	else
 				      		this.ShowHideComponent();
@@ -88,8 +86,6 @@ export default class DatePickerScreen extends Component {
 				      			this.props.navigation.navigate('BabyProgress', {appMode: 2, dateUpdate: true,
 				      				day: date.getDate(), month: date.getMonth(), year: date.getFullYear()});
 					      	}
-					      	//await AsyncStorage.setItem('imagePath', JSON.stringify(require("../assets/images/baby_progress/refresh.png")));
-							//this.props.navigation.navigate('Home');
 						}
 						else {
 							this.ShowHideComponent();

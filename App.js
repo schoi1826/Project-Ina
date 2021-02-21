@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { Modal, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Button, Icon } from 'react-native-elements';
@@ -20,6 +20,8 @@ import DatePickerScreen from './components/DatePickerScreen';
 const Stack = createStackNavigator();
 
 function App() {
+  const [settingVisible, setSettingVisible] = useState(false);
+
   return (
     <NavigationContainer>
       <Stack.Navigator 
@@ -32,14 +34,36 @@ function App() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-          headerRight: () => (
+          headerRight: () => [
             <Button
               icon={
                 <Icon name='more-vert' color="white" />
               }
               type="clear"
-            />
-          )
+              onPress={() => setSettingVisible(!settingVisible)}
+            />,
+            <View style={{flex: 1}}>
+              <Modal 
+                visible={settingVisible}
+                transparent={true}
+                onRequestClose={() => setSettingVisible(!settingVisible)}
+              >
+                <View style={{
+                  flex: 1,
+                  margin: 50,
+                  marginTop: 200,
+                  marginBottom: 200,
+                  borderRadius: 20,
+                  justifyContent: 'center', 
+                  alignItems: 'center', 
+                  backgroundColor: 'white'}}
+                >
+                  <Text>Settings</Text>
+                  <Button onPress={() => setSettingVisible(!setSettingVisible)} title="Close" />
+                </View>
+              </Modal>
+            </View>
+          ]
         }}
       >
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Button, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Icon } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 
 import LocalData from './components/LocalData';
 import HomeScreen from './components/HomeScreen';
@@ -32,6 +32,14 @@ function App() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          headerRight: () => (
+            <Button
+              icon={
+                <Icon name='more-vert' color="white" />
+              }
+              type="clear"
+            />
+          )
         }}
       >
 
